@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Exemplos JavaNFE</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:messages closable="true"/>
+
+            <p:panelGrid columns="2">
+
+                <p:outputLabel value="Ambiente" for="ambiente"/>
+                <p:selectOneMenu value="#{exemploBean.ambiente}"
+                                 id="ambiente">
+                    <f:selectItem itemValue="2" itemLabel="2 - Homologação"/>                     
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Tipo Certificado" for="certificado"/>
+                <p:selectOneMenu value="#{exemploBean.tipoCertificado}"
+                                 id="certificado">
+                    <f:selectItem itemValue="A1" itemLabel="A1"/>                     
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Enviar A1"/>
+                <p:fileUpload id="uploadpfx"
+                              mode="advanced" 
+                              style="margin-top: 15px;"
+                              allowTypes="/(\.|\/)(pfx)$/"
+                              invalidFileMessage="Tipo de arquivo não permitido(apenas pfx)"
+                              invalidSizeMessage="Tamanho excedido(100kb)"
+                              uploadLabel="Enviar" fileLimit="1"
+                              fileLimitMessage="Apenas um pfx" dragDropSupport="true"
+                              fileUploadListener="#{exemploBean.recebepfx}"
+                              cancelLabel="Cancelar"
+                              label="Selecionar..." 
+                              multiple="false"
+                              sizeLimit="102400" update="@form"
+                              />
+
+
+                <p:outputLabel value="Certificado A1 Atual" />
+                <p:outputLabel value="#{exemploBean.caminhoA1}"/>
+                
+                <p:outputLabel value="Senha" for="senha"/>
+                <p:inputText value="#{exemploBean.senhaCertificado}"
+                            required="true"
+                            requiredMessage="digite a senha"
+                            id="senha"
+                            >
+                </p:inputText>
+
+                <p:outputLabel value="UF" for="uf"/>
+                <p:inputText value="#{exemploBean.uf}"
+                             required="true"
+                             requiredMessage="digite a uf"
+                             id="uf"
+                             >
+                    <f:validateLength minimum="2" maximum="2"/>
+                </p:inputText>
+                
+                <p:commandButton value="Status Serviço"
+                                 update="@form"
+                                 actionListener="#{exemploBean.statusServico()}"/>
+
+
+            </p:panelGrid>
+
+
+        </h:form>
+    </h:body>
+</html>
+
