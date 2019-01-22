@@ -2,4 +2,4 @@ Integração da lib JavaNFE do https://github.com/Samuel-Oliveira/Java_NFe com J
 
 -Exemplo Status Servico
 
-restante de exemploes esta em https://github.com/Samuel-Oliveira/Java_NFe/wiki
+restante dos exemplos esta em https://github.com/Samuel-Oliveira/Java_NFe/wiki
