@@ -57,7 +57,7 @@ public class ExemploBean implements Serializable {
             this.uf = prop.getProperty("uf");
             this.tipoCertificado = prop.getProperty("tipoCerticado");
             this.ambiente = prop.getProperty("ambiente");
-            this.senhaCertificado = prop.getProperty("senhaCerticado");
+            this.senhaCertificado = prop.getProperty("senhaCertificado");
 
             File pastaSchemas = new File(FacesContext.getCurrentInstance().
                     getExternalContext().getRealPath("/WEB-INF/") + File.separator + "schemas");
