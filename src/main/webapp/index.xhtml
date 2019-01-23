@@ -8,10 +8,11 @@
         <title>Exemplos JavaNFE</title>
     </h:head>
     <h:body>
-        <h:form>
-            <p:messages closable="true"/>
+        <h:form id="form">
+            <p:messages closable="true" id="msg"/>
 
-            <p:panelGrid columns="2">
+            <p:panelGrid columns="2" rendered="#{exemploBean.configurado eq false}">
+
 
                 <p:outputLabel value="Ambiente" for="ambiente"/>
                 <p:selectOneMenu value="#{exemploBean.ambiente}"
@@ -44,29 +45,97 @@
 
                 <p:outputLabel value="Certificado A1 Atual" />
                 <p:outputLabel value="#{exemploBean.caminhoA1}"/>
-                
+
                 <p:outputLabel value="Senha" for="senha"/>
                 <p:inputText value="#{exemploBean.senhaCertificado}"
-                            required="true"
-                            requiredMessage="digite a senha"
-                            id="senha"
-                            >
+                             required="true"
+                             id="senha"
+                             requiredMessage="digite a senha"
+                             >
                 </p:inputText>
 
                 <p:outputLabel value="UF" for="uf"/>
-                <p:inputText value="#{exemploBean.uf}"
+                <p:inputText value="#{exemploBean.uf}"                         
                              required="true"
                              requiredMessage="digite a uf"
                              id="uf"
                              >
                     <f:validateLength minimum="2" maximum="2"/>
                 </p:inputText>
-                
-                <p:commandButton value="Status Serviço"
+
+                <p:commandButton value="Salvar e Testar"
                                  update="@form"
                                  actionListener="#{exemploBean.statusServico()}"/>
 
+                <p:commandButton value="Cancelar"
+                                 update="@form"
+                                 actionListener="#{exemploBean.cancelarConfigurarCertificado()}"/>
 
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" rendered="#{exemploBean.configurado}">
+
+                <p:outputLabel value="#{exemploBean.configuracao}" />
+
+                <p:commandButton value="Configurar Certificado"
+                                 update="@form"
+                                 immediate="true"
+                                 actionListener="#{exemploBean.configurarCertificado()}"/>
+
+                <p:commandButton value="Status Serviço"
+                                 update="@form"
+                                 immediate="true"
+                                 actionListener="#{exemploBean.statusServico()}"/>
+
+
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="2" rendered="#{exemploBean.configurado}" id="consultanfe">
+                <p:inputText value="#{exemploBean.chave}" 
+                             id="chave"
+                             size="50"
+                             required="true"
+                             requiredMessage="digite a chave"
+                             placeholder="chave acesso"
+                             maxlength="44"
+                             validatorMessage="chave invalida">
+                    <f:validateLength minimum="44" maximum="44"/>
+                </p:inputText>
+                <p:commandButton value="Consultar Situacao Nfe"
+                                 update=":form:consultanfe :form:msg"
+                                 process=":form:consultanfe"
+                                 actionListener="#{exemploBean.consultarSituacaoNfe()}"/>
+            </p:panelGrid>
+            
+            <p:panelGrid columns="3" rendered="#{exemploBean.configurado}" id="consultacadastro">
+                <p:inputText value="#{exemploBean.cpfcnpj}" 
+                             id="cpfcnpj"                             
+                             required="true"
+                             requiredMessage="digite cnpj"
+                             placeholder="cnpj destinatario"
+                             maxlength="14"
+                             size="24"
+                             validatorMessage="cnpj invalida">
+                    <f:validateLength minimum="14" maximum="14"/>
+                </p:inputText>
+                
+              
+                <p:inputText value="#{exemploBean.ufdestinatario}"                         
+                             required="true"
+                             size="10"
+                             validatorMessage="uf invalida"
+                             requiredMessage="digite a uf destinatario"
+                             placeholder="uf destinatario"
+                             >
+                    <f:validateLength minimum="2" maximum="2"/>
+                </p:inputText>
+                
+                <p:commandButton value="Consultar Situacao Destinatario"
+                                 update=":form:consultacadastro :form:msg"
+                                 process=":form:consultacadastro"
+                                 actionListener="#{exemploBean.consultarSituacaoDestinatario()}"/>
             </p:panelGrid>
 
 
